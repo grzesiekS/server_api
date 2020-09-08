@@ -10,17 +10,21 @@ const db = [
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+const filterDB = id => (
+    db.filter(content => content.id === parseInt(id))
+);
+
 app.get('/testimonials', (req, res) => {
     res.send(db);
 });
 
 app.get('/testimonials/random', (req, res) => {
     const randomNumber = Math.floor(Math.random() * db.length) + 1
-    res.send(db.filter(content => content.id === randomNumber));
+    res.send(filterDB(randomNumber));
 });
 
 app.get('/testimonials/:id', (req, res) => {
-    res.send(db.filter(content => content.id === parseInt(req.params.id)));
+    res.send(filterDB(req.params.id));
 });
 
 app.post('/testimonials', (req, res) => {
@@ -34,7 +38,7 @@ app.post('/testimonials', (req, res) => {
 });
 
 app.put('/testimonials/:id', (req, res) => {
-    db.filter(content => content.id === parseInt(req.params.id)).forEach(content => {
+    filterDB(req.params.id).forEach(content => {
         content.author = req.body.author;
         content.text = req.body.text;
     });
