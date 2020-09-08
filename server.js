@@ -4,6 +4,7 @@ const app = express();
 const db = [
     { id: 1, author: 'John Doe', text: 'This company is worth every coin!' },
     { id: 2, author: 'Amanda Doe', text: 'They really know how to make you happy.' },
+    { id: 3, author: 'Lorem ipsum', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
 ];
 
 app.use(express.urlencoded({ extended: false }));
@@ -11,6 +12,11 @@ app.use(express.json());
 
 app.get('/testimonials', (req, res) => {
     res.send(db);
+});
+
+app.get('/testimonials/random', (req, res) => {
+    const randomNumber = Math.floor(Math.random() * db.length) + 1
+    res.send(db.filter(content => content.id === randomNumber));
 });
 
 app.get('/testimonials/:id', (req, res) => {
