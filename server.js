@@ -13,6 +13,10 @@ app.get('/testimonials', (req, res) => {
     res.send(db);
 });
 
+app.get('/testimonials/:id', (req, res) => {
+    res.send(db.filter(content => content.id === parseInt(req.params.id)));
+});
+
 app.listen(8000, () => {
     console.log('Server is running on port: 8000');
 });
