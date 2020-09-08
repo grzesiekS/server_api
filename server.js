@@ -15,16 +15,16 @@ const filterDB = id => (
 );
 
 app.get('/testimonials', (req, res) => {
-    res.send(db);
+    res.json(db);
 });
 
 app.get('/testimonials/random', (req, res) => {
     const randomNumber = Math.floor(Math.random() * db.length) + 1
-    res.send(filterDB(randomNumber));
+    res.json(filterDB(randomNumber));
 });
 
 app.get('/testimonials/:id', (req, res) => {
-    res.send(filterDB(req.params.id));
+    res.json(filterDB(req.params.id));
 });
 
 app.post('/testimonials', (req, res) => {
@@ -34,7 +34,7 @@ app.post('/testimonials', (req, res) => {
        author: req.body.author,
        text: req.body.text,
     });
-    res.send({message: 'OK'});
+    res.json({message: 'OK'});
 });
 
 app.put('/testimonials/:id', (req, res) => {
@@ -43,12 +43,16 @@ app.put('/testimonials/:id', (req, res) => {
         content.text = req.body.text;
     });
     
-    res.send({message: 'OK'});
+    res.json({message: 'OK'});
 });
 
 app.delete('/testimonials/:id', (req, res) => {
     if(db.indexOf(filterDB(req.params.id)[0]) > - 1) db.splice(db.indexOf(filterDB(req.params.id)[0]), 1);
-    res.send({message: 'OK'});
+    res.json({message: 'OK'});
+});
+
+app.use((req, res) => {
+    res.status(404).json({message: 'Not found...'})
 });
 
 app.listen(8000, () => {
