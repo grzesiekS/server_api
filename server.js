@@ -9,6 +9,10 @@ const db = [
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.get('/testimonials', (req, res) => {
+    res.send(db);
+});
+
 app.listen(8000, () => {
     console.log('Server is running on port: 8000');
 });
