@@ -1,25 +1,21 @@
 const express = require('express');
+const db = require('./db');
 
 const app = express();
-const db = [
-    { id: 1, author: 'John Doe', text: 'This company is worth every coin!' },
-    { id: 2, author: 'Amanda Doe', text: 'They really know how to make you happy.' },
-    { id: 3, author: 'Lorem ipsum', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-];
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 const filterDB = id => (
-    db.filter(content => content.id == id)
+    db.testimonials.filter(content => content.id == id)
 );
 
 app.get('/testimonials', (req, res) => {
-    res.json(db);
+    res.json(db.testimonials);
 });
 
 app.get('/testimonials/random', (req, res) => {
-    const randomNumber = Math.floor(Math.random() * db.length) + 1
+    const randomNumber = Math.floor(Math.random() * db.testimonials.length) + 1
     res.json(filterDB(randomNumber));
 });
 
@@ -28,8 +24,8 @@ app.get('/testimonials/:id', (req, res) => {
 });
 
 app.post('/testimonials', (req, res) => {
-    const newId = db[db.length-1].id + 1;
-    db.push({
+    const newId = db.testimonials[db.testimonials.length-1].id + 1;
+    db.testimonials.push({
        id: newId,
        author: req.body.author,
        text: req.body.text,
@@ -47,7 +43,7 @@ app.put('/testimonials/:id', (req, res) => {
 });
 
 app.delete('/testimonials/:id', (req, res) => {
-    if(db.indexOf(filterDB(req.params.id)[0]) > - 1) db.splice(db.indexOf(filterDB(req.params.id)[0]), 1);
+    if(db.testimonials.indexOf(filterDB(req.params.id)[0]) > - 1) db.testimonials.splice(db.testimonials.indexOf(filterDB(req.params.id)[0]), 1);
     res.json({message: 'OK'});
 });
 
