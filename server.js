@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 const filterDB = id => (
-    db.filter(content => content.id === parseInt(id))
+    db.filter(content => content.id == id)
 );
 
 app.get('/testimonials', (req, res) => {
