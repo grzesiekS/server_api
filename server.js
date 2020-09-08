@@ -32,7 +32,7 @@ app.post('/testimonials', (req, res) => {
     db.push({
        id: newId,
        author: req.body.author,
-       text: req.body.text, 
+       text: req.body.text,
     });
     res.send({message: 'OK'});
 });
@@ -43,6 +43,11 @@ app.put('/testimonials/:id', (req, res) => {
         content.text = req.body.text;
     });
     
+    res.send({message: 'OK'});
+});
+
+app.delete('/testimonials/:id', (req, res) => {
+    if(db.indexOf(filterDB(req.params.id)[0]) > - 1) db.splice(db.indexOf(filterDB(req.params.id)[0]), 1);
     res.send({message: 'OK'});
 });
 
