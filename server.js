@@ -41,8 +41,4 @@ const io = socket(server);
 
 io.on('connection', (socket) => {
     console.log('New socket!');
-
-    socket.on('seatsUpdated', () => {
-        console.log('Update');
-    });
 });
