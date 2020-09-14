@@ -4,6 +4,7 @@ import { API_URL } from '../config';
 /* SELECTORS */
 export const getSeats = ({ seats }) => seats.data;
 export const getRequests = ({ seats }) => seats.requests;
+export const getCountSeats = ({ seats }, chosenDay) => seats.data.filter(seat => seat.day === chosenDay).length;
 
 /* ACTIONS */
 
