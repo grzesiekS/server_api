@@ -16,6 +16,11 @@ app.use(cors());
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '/client/build')));
 
+app.use((req, res, next) => {
+    req.io = io;
+    next();
+});
+
 app.use('/api', testimonialsRoutes);
 app.use('/api', concertsRoutes);
 app.use('/api', seatsRoutes);
@@ -36,4 +41,8 @@ const io = socket(server);
 
 io.on('connection', (socket) => {
     console.log('New socket!');
+
+    socket.on('seatsUpdated', () => {
+        console.log('Update');
+    });
 });
