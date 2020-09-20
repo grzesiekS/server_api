@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Seat = require('../models/seats.model');
 const SeatsController = require('../controllers/seats.controller');
 
 router.get('/seats', SeatsController.getAll);
