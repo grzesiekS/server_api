@@ -35,6 +35,17 @@ describe('GET /api/concerts',() => {
         )
         await testConcertTwo.save();
 
+        const testConcertThree = new Concert(
+            {
+                performer: 'TestPreformer3',
+                genre: 'metal',
+                price: 100,
+                day: 30,
+                image: 'test.jpg',
+            }
+        )
+        await testConcertThree.save();
+
         const testSeatOne = new Seat(
             {
                 day: 25,
@@ -73,7 +84,7 @@ describe('GET /api/concerts',() => {
         const res = await request(server).get('/api/concerts');
         expect(res.status).to.be.equal(200);
         expect(res.body).to.be.an('array');
-        expect(res.body.length).to.be.equal(2);
+        expect(res.body.length).to.be.equal(3);
     });
 
     it('should return proper tickets number', async () => {
@@ -81,6 +92,7 @@ describe('GET /api/concerts',() => {
         res.body.forEach(concert => {
             if(concert.day === 25) expect(concert.ticket).to.be.equal(48);
             if(concert.day === 26) expect(concert.ticket).to.be.equal(49);
+            if(concert.day === 30) expect(concert.ticket).to.be.equal(50);
         });
     });
 
