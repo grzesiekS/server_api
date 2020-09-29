@@ -3,7 +3,6 @@ const cors = require('cors');
 const path = require('path');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
-
 const app = express();
 
 const testimonialsRoutes = require('./routes/testimonials.routes');
@@ -53,3 +52,5 @@ const io = socket(server);
 io.on('connection', (socket) => {
     console.log('New socket!');
 });
+
+module.exports = server;
