@@ -33,7 +33,7 @@ app.use((req, res) => {
     res.status(404).json({message: 'Not found...'})
 });
 
-const dbURI = process.env.NODE_ENV === 'production' ? 'mongodb+srv://admin:admin1@cluster0.dorur.azure.mongodb.net/NewWaveDB?retryWrites=true&w=majority' : 'mongodb://localhost:27017/NewWaveDB';
+const dbURI = process.env.NODE_ENV === 'production' ? `mongodb+srv://${process.env.LOGIN_DB}:${process.env.PASSWORD_DB}@cluster0.dorur.azure.mongodb.net/NewWaveDB?retryWrites=true&w=majority` : 'mongodb://localhost:27017/NewWaveDB';
 
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
 
