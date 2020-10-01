@@ -12,7 +12,7 @@
     "express": "4.17.1",
     "helmet": "3.21.1",
     "mocha": "6.2.1",
-    "mongo-sanitize": "1.0.1",
+    "mongo-sanitize": "1.1.0",
     "mongoose": "^5.10.6",
     "nodemon": "2.0.4",
     "onchange": "^7.0.2",
